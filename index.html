@@ -1,55 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18122996753"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-18122996753');
-</script>
-
-<!-- Disparo de conversão Google Ads - Clique no WhatsApp -->
-<script>
-document.addEventListener('click', function(e) {
-  var link = e.target.closest('a[href="wa.me/"], a[href="api.whatsapp.com"], a[href*="web.whatsapp.com"]');
-  if (!link) return;
-
-  var abreNovaAba = link.target === '_blank'  e.ctrlKey 
- e.metaKey  e.shiftKey 
- e.button === 1;
-
-  if (abreNovaAba) {
-    // Nova aba: aba atual permanece aberta, o evento envia normalmente
-    gtag('event', 'conversion', {
-      'send_to': 'AW-18122996753/YGBuCPz--qQcEJH428FD'
-    });
-  } else {
-    // Mesma aba: prevenir o redirect, esperar a conversão ser registrada, depois redirecionar
-    e.preventDefault();
-    var urlDestino = link.href;
-    var jaRedirecionou = false;
-
-    var redirecionar = function() {
-      if (jaRedirecionou) return;
-      jaRedirecionou = true;
-      window.location.href = urlDestino;
-    };
-
-    gtag('event', 'conversion', {
-      'send_to': 'AW-18122996753/YGBuCPz--qQcEJH428FD',
-      'event_callback': redirecionar
-    });
-
-    // Failsafe: se o callback do Google demorar mais de 1s, redireciona mesmo assim
-    setTimeout(redirecionar, 1000);
-  }
-}, true);
-</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Bernar Paiva — Advocacia Trabalhista | Defesa do Trabalhador em Bagé/RS</title>
@@ -300,6 +251,40 @@ footer{background:var(--ink);padding:5rem 0 2rem;border-top:1px solid var(--line
 }
 ::selection{background:var(--bronze);color:var(--ink)}
 </style>
+
+<!-- Google tag (gtag.js) - Google Ads: AW-18122996753 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18122996753"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18122996753');
+
+  // Conversao "Contato Whatsapp" - dispara em todos os cliques em links wa.me
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) !== 'undefined') { window.location = url; }
+    };
+    gtag('event', 'conversion', {
+      'send_to': 'AW-18122996753/YGBuCPz--qQcEJH428FD',
+      'event_callback': callback
+    });
+    return false;
+  }
+
+  // Auto-attach: registra a conversao em qualquer clique em link de WhatsApp
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href*="wa.me/"]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-18122996753/YGBuCPz--qQcEJH428FD'
+          });
+        }
+      });
+    });
+  });
+</script>
 </head>
 <body>
 
